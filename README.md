@@ -4,6 +4,11 @@
 
 Information about using Amazon Cognito User Pools can be found at [http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html](http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
 
+## Dependencies
+
+* [AWSSDK.CognitoIdentityProvider](https://www.nuget.org/packages/AWSSDK.CognitoIdentityProvider/) - used to retrieve the user claims information
+* [Microsoft.AspNetCore.Authentication.OAuth](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.OAuth/) - This Provider is subclassed from the OAuth Provider
+
 ## Getting Started
 
 Once you have [set up your Amazon Cognito User Pool](http://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-cognito-user-pools.html) and [defined an application within the user pool](http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-app-integration.html), you will have the necessary information to configure this provider.
