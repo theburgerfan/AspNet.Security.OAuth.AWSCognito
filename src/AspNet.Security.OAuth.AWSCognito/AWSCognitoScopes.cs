@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AspNet.Security.OAuth.AWSCognito
 {
-    class AWSCognitoScopes
+    public class AWSCognitoScopes
     {
 		// todo : additional non-custom scopes
 		public const string OpenId = "openid";
