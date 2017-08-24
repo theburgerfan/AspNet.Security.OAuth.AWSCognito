@@ -6,7 +6,7 @@ namespace AspNet.Security.OAuth.AWSCognito
 {
     public class AWSCognitoScopes
     {
-		// todo : additional non-custom scopes
+		public const string Phone = "phone";
 		public const string OpenId = "openid";
 		public const string Profile = "profile";
 		public const string Email = "email";
