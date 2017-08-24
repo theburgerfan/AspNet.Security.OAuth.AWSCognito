@@ -2,6 +2,8 @@
 
 **AspNet.Security.OAuth.AWSCognito** allows you to authenticate against your AWS Cognito User Pool. This can be handy if your User Pool is associated with [Social Identity Providers](http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social.html) such as Facebook or Google.
 
+This Provider supports the AWS Cognito OAuth 2.0 Flow `Authorization code grant`.
+
 Information about using Amazon Cognito User Pools can be found at [http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html](http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
 
 ## Dependencies
@@ -35,7 +37,6 @@ In your `Startup` class `ConfigureServices` method, register the Provider and co
                 options.Scope.Add(AWSCognitoScopes.OpenId);
                 options.Scope.Add(AWSCognitoScopes.Profile);
                 options.Scope.Add(AWSCognitoScopes.Email);
-                options.Scope.Add(AWSCognitoScopes.AwsCognitoSigninUserAdmin);
             });
 
 ```

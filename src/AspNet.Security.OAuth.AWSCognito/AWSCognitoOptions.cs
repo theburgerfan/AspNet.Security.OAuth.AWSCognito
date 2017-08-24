@@ -17,7 +17,8 @@ namespace AspNet.Security.OAuth.AWSCognito
 
 		public AWSCognitoOptions()
 		{
-			// todo : add other common AWS Cognito claims
+			Scope.Add(AWSCognitoScopes.AwsCognitoSigninUserAdmin);
+
 			ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
 			ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
 			ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
