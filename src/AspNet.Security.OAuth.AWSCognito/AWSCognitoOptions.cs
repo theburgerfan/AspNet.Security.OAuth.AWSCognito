@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Globalization;
 using System.Security.Claims;
 
 namespace AspNet.Security.OAuth.AWSCognito
@@ -11,10 +13,69 @@ namespace AspNet.Security.OAuth.AWSCognito
 	/// </summary>
 	public class AWSCognitoOptions : OAuthOptions
 	{
+		private string m_userPoolAppDomainPrefix;
+
+		/// <summary>
+		/// Amazon Region containing the AWS Cognito User Pool
+		/// </summary>
 		public RegionEndpoint AmazonRegionEndpoint { get; set; } = RegionEndpoint.USEast1;
 
-		// todo : automate AuthorizationEndpoint and TokenEndpoint by taking UserPoolDomainPrefix and assembling the urls
-		// https://XXXXXXXXXXX.auth.REGIONLOWERCASE.amazoncognito.com
+		/// <summary>
+		/// Domain Prefix of the AWS Cognito User Pool Application
+		/// </summary>
+		public string UserPoolAppDomainPrefix
+		{
+			get
+			{
+				return m_userPoolAppDomainPrefix;
+			}
+			set
+			{
+				m_userPoolAppDomainPrefix = value;
+				AuthorizationEndpoint = $"{BaseUserPoolApplicationDomain}/authorize";
+				TokenEndpoint = $"{BaseUserPoolApplicationDomain}/token";
+			}
+		}
+
+		/// <summary>
+		/// Gets the URI where the client will be redirected to authenticate.
+		/// </summary>
+		public new string AuthorizationEndpoint
+		{
+			get
+			{
+				return base.AuthorizationEndpoint;
+			}
+
+			private set
+			{
+				base.AuthorizationEndpoint = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets the URI the middleware will access to exchange the OAuth token.
+		/// </summary>
+		public new string TokenEndpoint
+		{
+			get
+			{
+				return base.TokenEndpoint;
+			}
+
+			private set
+			{
+				base.TokenEndpoint = value;
+			}
+		}
+
+		private string BaseUserPoolApplicationDomain
+		{
+			get
+			{
+				return $"https://{UserPoolAppDomainPrefix}.auth.{AmazonRegionEndpoint.SystemName}.amazoncognito.com";
+			}
+		}
 
 		public AWSCognitoOptions()
 		{
@@ -58,6 +119,16 @@ namespace AspNet.Security.OAuth.AWSCognito
 				}
 				return null;
 			});
+		}
+
+		public override void Validate()
+		{
+			base.Validate();
+
+			if (string.IsNullOrEmpty(UserPoolAppDomainPrefix))
+			{
+				throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "The '{0}' option must be provided.", nameof(UserPoolAppDomainPrefix)), nameof(UserPoolAppDomainPrefix));
+			}
 		}
 	}
 }

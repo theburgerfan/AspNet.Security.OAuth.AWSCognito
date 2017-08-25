@@ -28,9 +28,8 @@ In your `Startup` class `ConfigureServices` method, register the Provider and co
                 options.ClientId = "YOUR_USERPOOL_APP_CLIENT_ID";
                 options.ClientSecret = "YOUR_USERPOOL_APP_CLIENT_SECRET";
                 
-                options.CallbackPath = new PathString("/signin-myservice"); // Your UserPool App Callback Url
-                options.AuthorizationEndpoint = "https://<YOUR-USERPOOL-APP-DOMAIN-PREFIX>.auth.us-east-1.amazoncognito.com/authorize";
-                options.TokenEndpoint = "https://<YOUR-USERPOOL-APP-DOMAIN-PREFIX>.auth.us-east-1.amazoncognito.com/token";
+                options.CallbackPath = "/signin-myservice"; // Your UserPool App Callback Url
+                options.UserPoolAppDomainPrefix = "YOUR-USERPOOL-APP-DOMAIN-PREFIX";
                 options.AmazonRegionEndpoint = RegionEndpoint.USEast1; // AWS Region of your Cognito User Pool
                 
                 // Add Your Scopes of Interest
